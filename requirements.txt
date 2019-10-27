@@ -1,0 +1,2 @@
+QuantLib-Python
+ipykernel
