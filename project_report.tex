@@ -1,6 +1,6 @@
 \documentclass{report}
 \usepackage{setspace}
-%\usepackage{subfigure}
+\usepackage{subfigure}
 
 \pagestyle{plain}
 \usepackage{amssymb,graphicx,color}
@@ -47,13 +47,12 @@ $\Box$ \end{quotation}}
 This report is submitted as part requirement for the BSc Computer Science at UCL. It is
 substantially the result of my own work except where explicitly indicated in the text.
 \emph{Either:} The report may be freely copied and distributed provided the source is explicitly acknowledged
-\newline  % \\ messes it up
+\newline  
 \emph{Or:}\newline
 The report will be distributed to the internal and external examiners, but thereafter may not be copied or distributed except with permission from the author.}
 \\ \\
 BSc Computer Science\\ \\
 Dr Dariush Hosseini }
-
 
 
 \begin{document}
@@ -103,7 +102,6 @@ We can refer to labels like this \eqref{line1}.
 This Chapter contains my research and reading on both options pricing and DL and current DL on options pricing.
 
 \section{Options and Options Pricing}
-Often lots of citations here (and elsewhere), e.g. \cite{Rey:D} or \cite[Theorem 2.3]{PriorNOP70}.   Bibtex can help with this, but is not essential. If you want pictures, try
 
 Contents to be included:
 \begin{itemize}
@@ -111,12 +109,33 @@ Contents to be included:
 \item BS and the Greeks
 \item Options price prediction, the Greeks, Monte-Carlo and its accuracy/stability because of unstable Greeks
 \end{itemize}
-or numbered
+
+
+\subsection{Options, the traditional financial instrument}
+Source link: \url {https://www.investopedia.com/options-basics-tutorial-4583012}\newline
+An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date.
+A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities.
+There are four things you can do with options:
+\begin{itemize}
+\item Buy calls
+\item Sell calls
+\item Buy puts
+\item Sell puts
+\end{itemize}
+Buying stock gives you a long position. Buying a call option gives you a potential long position in the underlying stock. Short-selling a stock gives you a short position. Selling a naked or uncovered call gives you a potential short position in the underlying stock.
+
+Buying a put option gives you a potential short position in the underlying stock. Selling a naked, or unmarried, put gives you a potential long position in the underlying stock. Keeping these four scenarios straight is crucial.
+
+People who buy options are called holders and those who sell options are called writers of options. Here is the important distinction between holders and writers:
 \begin{enumerate}
-\item like this,
-\item or this
+
+\item Call holders and put holders (buyers) are not obligated to buy or sell. They have the choice to exercise their rights. This limits the risk of buyers of options to only the premium spent.
+\item Call writers and put writers (sellers), however, are obligated to buy or sell if the option expires in-the-money (more on that below). This means that a seller may be required to make good on a promise to buy or sell. It also implies that option sellers have exposure to more, and in some cases, unlimited, risks. This means writers can lose much more than the price of the options premium.
 \end{enumerate}
-but don't overdo it.
+
+
+Here, we focus on call options and European options only. American options can be exercised at any time between the date of purchase and the expiration date. European options are different from American options in that they can only be exercised at the end of their lives on their expiration date.
+We will also look into vanilla options first, then extend the findings to exotic options. 
 
 \section{Deep Learning}
 \subsection{Deep Learning in general}
@@ -130,7 +149,13 @@ This Chapter contains everything with synthetic data for all experiments;
 vanilla options;\\
 Monte-Carlo;\\
 Exotic options'\\
-
+\section{Validation and Testing}
+Validation is needed because of the problem of peeking [\url{https://machinelearningmastery.com/difference-test-validation-datasets/}]. I realise that improvements could be made upon the suggested models in the first paper. 
+A good definition of the three data sets was proposed in Ripley’s book “Pattern Recognition and Neural Networks” as follows:
+– Training set: A set of examples used for learning, that is to fit the parameters of the classifier.\\
+– Validation set: A set of examples used to tune the parameters of a classifier, for example to choose the number of hidden units in a neural network.\\
+– Test set: A set of examples used only to assess the performance of a fully-specified classifier.\\
+Despite having enough data for validation (as they could be generated endlessly), one seperate, independent validation set has limited ability to identify and assess the uncertainty of a model. [\url{Max Kuhn and Kjell Johnson, Page 78, Applied Predictive Modeling, 2013}]Therefore, cross-validation is preferred.
 \begin{definition}\label{def}
 See definition~\ref{def}.
 \end{definition}
@@ -153,6 +178,7 @@ Train the DL model and the traditional method for exotic options\\
 Run tests and comparisons again for new conclusions
 
 \subsection{DL Implementation on Vanilla options}
+\subsection{Validation on the Hyperparameters}
 \subsection{Implementation of  traditional Monte-Carlo method}
 \subsection{Examination with Traditional Methods}
 \subsection{Extension to Exotic Options Pricing}
