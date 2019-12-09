@@ -68,16 +68,9 @@ This report will provide an overview on fast substitutions to traditional option
 
 
 \chapter{Introduction}
-This chapter includes information which covers the big picture of the project, it should include:
-\begin{itemize}
-\item Motivation; Why this area etc
-\item My hypothesis tests
-\item Summaries of how I will approach the problem
-\item The scope and products of interests
-\end{itemize}
 
 \section{The problem}
-Options are one important financial instruments for investments. The ability to predict the prices is essential. The industry is still replying on traditional analytic methods to make estimations with assumptions that are known to be wrong. Noticing deep learning's impressing performance on prediction after training, this project thus decides to explore the possibilities of substituting the existing methods by trained neural networks and yield more stable and accurate outputs.
+Options are one important financial instruments for investments. The ability to predict the prices is essential. The industry is still replying on traditional analytic methods to make estimations with assumptions that are known to be wrong. Noticing deep learning's impressing performance on prediction after training, this project thus decides to explore the possibilities of substituting the existing methods by trained neural networks and yield more stable and accurate outputs on particular financial products, namely vanilla and exotic call options. 
 
 \section{Aims and Deliverables}
 This project aims to complete the following objectives:
@@ -95,21 +88,19 @@ After several rounds of experiments and analysis, the aim is to deliver followin
 \end{itemize}
 
 \section{Annotated Contents}
-This section gives a detailed summary of the project structure and the contents for each chapter.
-\textbf{Chapter One: Introduction}
-This chapter gives the basic information about the project and provides an overview of this report.
-\textbf{Chapter Two: Literature Review}
-This chapter details the related background knowledge prior to this project. It covers both financial and computer science related information. Explanations about options and deep learning in general and the works focusing on both aspects are provided. The scope is then limited to the types of options and specific models I would like to use. Some introductions about the traditional methods and existing neural networks for options pricing are mentioned as they will be used as references and comparisons in my assessment and evaluation.
-\textbf{Chapter Three: Data and Pre-processing}
-This chapter includes everything about the data we use throughout the project. The considerations about using solely synthetic data are elaborated. The chapter walks through the requirements for the datasets and the steps for generating the data. Both vanilla options and exotic options are generated in this project.
-\textbf{Chapter Four: Experiments with Different Methods}
-Several experiments based on existing papers are carried out in this chapter with new findings and refinements made accordingly. There are trained deep neural networks for both vanilla options and exotic options followed by comparisons to Monte-Carlo, one example of the traditional methods. Other than option pricing, we also look at the Greeks predictions and responding performances. Conclusions from the basic vanilla options are then extended to exotic options.
-\textbf{Chapter Five: Evaluations and Conclusions}
-Ending the report, the last chapter summaries the project, discusses the success and limitations of the findings， and explore possible future works.
+This section gives a detailed summary of the project structure and the contents for each chapter.\\\\
+\textbf{Chapter One: Introduction}\\
+This chapter gives the basic information about the project and provides an overview of this report.\\
+\textbf{Chapter Two: Literature Review}\\
+This chapter details the related background knowledge prior to this project. It covers both financial and computer science related information. Explanations about options and deep learning in general and the works focusing on both aspects are provided. The scope is then limited to the types of options and specific models I would like to use. Some introductions about the traditional methods and existing neural networks for options pricing are mentioned as they will be used as references and comparisons in my assessment and evaluation.\\
+\textbf{Chapter Three: Data and Pre-processing}\\
+This chapter includes everything about the data we use throughout the project. The considerations about using solely synthetic data are elaborated. The chapter walks through the requirements for the datasets and the steps for generating the data. Both vanilla options and exotic options are generated in this project.\\
+\textbf{Chapter Four: Experiments with Different Methods}\\
+Several experiments based on existing papers are carried out in this chapter with new findings and refinements made accordingly. There are trained deep neural networks for both vanilla options and exotic options followed by comparisons to Monte-Carlo, one example of the traditional methods. Other than option pricing, we also look at the Greeks predictions and responding performances. Conclusions from the basic vanilla options are then extended to exotic options.\\
+\textbf{Chapter Five: Evaluations and Conclusions}\\
+Ending the report, the last chapter summaries the project, discusses the success and limitations of the findings， and explore possible future works.\\
 
 \chapter{Literature Review}
-
-This Chapter contains my research and reading on both options pricing and DL and current DL on options pricing.
 
 \section{Options and Options Pricing}
 
@@ -120,38 +111,76 @@ Contents to be included:
 \item Options price prediction, the Greeks, Monte-Carlo and its accuracy/stability because of unstable Greeks
 \end{itemize}
 
-
 \subsection{Options, the traditional financial instrument}
-Source link: \url {https://www.investopedia.com/options-basics-tutorial-4583012}\newline
-An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date.
-A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities.
-There are four things you can do with options:
-\begin{itemize}
-\item Buy calls
-\item Sell calls
-\item Buy puts
-\item Sell puts
-\end{itemize}
-Buying stock gives you a long position. Buying a call option gives you a potential long position in the underlying stock. Short-selling a stock gives you a short position. Selling a naked or uncovered call gives you a potential short position in the underlying stock.
-
-Buying a put option gives you a potential short position in the underlying stock. Selling a naked, or unmarried, put gives you a potential long position in the underlying stock. Keeping these four scenarios straight is crucial.
-
-People who buy options are called holders and those who sell options are called writers of options. Here is the important distinction between holders and writers:
+An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date. A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities.
 In this project, we focus on call options and European options only. American options can be exercised at any time between the date of purchase and the expiration date. European options are different from American options in that they can only be exercised at the end of their lives on their expiration date.
 We will also look into vanilla options first, then extend the findings to exotic options. 
+Option prices and the Greeks
+\subsection{Pricing Methods and Performances}
+Monte Carlo; BS; different accuracy and stability
 
 \section{Deep Learning}
-\subsection{Deep Learning in general}
 Explain Deep Learning in a simple way\\
 Types of Deep Learning (Methods to be used in this report)
+
 \subsection{Deep Learning in Finance & Options Pricing}
 
 
 \chapter{Data and Pre-processing}
-This Chapter contains everything with synthetic data for all experiments;
-vanilla options;\\
-Monte-Carlo;\\
-Exotic options'\\
+To price an option and other financial products, extensive past data are essential. It's the same for Deep Learning if the aim is to generate accurate neural networks. Considering the focus of this project which is the examination of different methods' performances instead of real-life prediction for a particular option, using real market data introduces possibly more obstacles than benefits. The amount of valid data we have access is limited and careful cleaning and filtering must be carried out before applying to the project. Therefore, synthetic data is used throughout the project for both traditional methods and for trainings of new neural networks. This consistency ensures that the comparisons and assessment made are valid and reasonable.
+
+\section{Synthetic data}
+
+\subsection{Vanilla Call Options}
+We use Quantlib to simulate call options. Quantlib\footnote{https://www.quantlib.org/} is an open-source library widely used for quantitative finance with pricing engines available to use. To begin with, we look into and base our data on the classic Black-Scholes model. As a basic building block of derivative theories, Black-Schole model is able to set a theoretical value for a call or put option based on six variables: the type of the option, volatility, underlying stock price, time to maturity, strike price, and risk-free rate. The model yields the call price as below.\\
+
+\begin{equation}
+\mathrm C(\mathrm S,\mathrm t)= \mathrm N(\mathrm d_1)\mathrm S - \mathrm N(\mathrm d_2) \mathrm K \mathrm e^{-rt}
+\label{eq:2}
+\end{equation}
+
+\begin{equation}
+\mathrm d_1= \frac{1}{\sigma \sqrt{\mathrm t}} \left[\ln{\left(\frac{S}{K}\right)} + t\left(r + \frac{\sigma^2}{2} \right) \right]
+\end{equation}
+
+\begin{equation}
+\mathrm d_2= \frac{1}{\sigma \sqrt{\mathrm t}} \left[\ln{\left(\frac{S}{K}\right)} + t\left(r - \frac{\sigma^2}{2} \right) \right]
+\end{equation}
+
+where 
+\begin{itemize}
+	\item[] C = Call option price 
+	\item[] S = Current stock price
+	\item[] K = Strike price of the option
+	\item[] r = risk-free interest rate 
+	\item[] $\sigma$ = volatility 
+	\item[] t = time to maturity (in years)
+	\item[] N = normal cumulative distribution function
+\end{itemize}
+
+The approach is to set a range of variables shown in Table \ref{tab:table1} and generate sets of data with a calculated call price. Note that this set of ranges and the initial way of normalising the training data which we will talk about later are both aligned with Robert Culkin & Sanjiv R. Das's \footnote{Do proper reference to the paper} paper as they are applicable to our project and allows easy comparisons between our results and the ones concluded by the paper.
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Parameter ranges for vanilla call options}
+		\label{tab:table1}
+		\begin{tabular}{l|S|r} % <-- Changed to S here.
+			\textbf{Variable}       & \textbf{Range}   \\
+			Call option price       & $0 – $328        \\
+			Current stock price     & $10 – $500       \\
+			Strike price            & $7 – $650        \\
+			Risk-free interest rate & 1\% – 3\%        \\
+			Volatility              & 5\% – 90\%       \\
+			Time to maturity        & 1 day to 3 years \\
+			Dividend rate (q)       & 0\% – 3\%       
+		\end{tabular}
+	\end{center}
+\end{table}
+
+
+
+
+\subsection{Exotic options}
 \section{Validation and Testing}
 Validation is needed because of the problem of peeking [\url{https://machinelearningmastery.com/difference-test-validation-datasets/}]. I realise that improvements could be made upon the suggested models in the first paper. 
 A good definition of the three data sets was proposed in Ripley’s book “Pattern Recognition and Neural Networks” as follows:
@@ -159,15 +188,7 @@ A good definition of the three data sets was proposed in Ripley’s book “Patt
 – Validation set: A set of examples used to tune the parameters of a classifier, for example to choose the number of hidden units in a neural network.\\
 – Test set: A set of examples used only to assess the performance of a fully-specified classifier.\\
 Despite having enough data for validation (as they could be generated endlessly), one seperate, independent validation set has limited ability to identify and assess the uncertainty of a model. [\url{Max Kuhn and Kjell Johnson, Page 78, Applied Predictive Modeling, 2013}]Therefore, cross-validation is preferred.
-\begin{definition}\label{def}
-See definition~\ref{def}.
-\end{definition}
-\begin{theorem}
-For all $n\in\nats,\; 1^n=1$.
-\end{theorem}
-\begin{proof}
-By induction over $n$.
-\end{proof}
+
 
 \chapter{Experiments with Different Methods}
 
