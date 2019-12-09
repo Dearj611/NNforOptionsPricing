@@ -1,6 +1,6 @@
 QuantLib-Python
 ipykernel
-Tensor flow
+Tensorflow
 keras
 pandas
 numpy

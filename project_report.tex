@@ -76,26 +76,36 @@ This chapter includes information which covers the big picture of the project, i
 \item The scope and products of interests
 \end{itemize}
 
-\section{Aims and Possible Applications}
-Chapters should contain numbered sections and sub-sections.
+\section{The problem}
+Options are one important financial instruments for investments. The ability to predict the prices is essential. The industry is still replying on traditional analytic methods to make estimations with assumptions that are known to be wrong. Noticing deep learning's impressing performance on prediction after training, this project thus decides to explore the possibilities of substituting the existing methods by trained neural networks and yield more stable and accurate outputs.
 
-\section{Project Overview}
-Chapters should contain numbered sections and sub-sections.
+\section{Aims and Deliverables}
+This project aims to complete the following objectives:
+\begin{itemize}
+\item An examination of machine learning approaches to pricing a range of options products will be examined. There will be a particular focus on methods proposed by some recent papers. The focus will be the implementations for vanilla options, then for some exotic extensions.
+\item A comparison of pricing speed on novel test points will be made between the ML approaches and traditional numerical approaches (particularly Monte-Carlo based mechanisms).
+\item In addition, an examination of how the ML approaches can be used for hedging will be made, and a discussion of advantages and disadvantages vis a vis traditional methods will be considered.
+\end{itemize}
+After several rounds of experiments and analysis, the aim is to deliver following outputs:
+\begin{itemize}
+\item A review of literature pertaining to machine learning approaches to options pricing – in particular, NN/DL approaches
+\item An implementation of a DL network to price vanilla Black Scholes options and an analysis of Greek stability and accuracy together with pricing speed vs traditional analytic and Monte-Carlo approaches will be made
+\item The experiments will be repeated for a portfolio of exotic derivatives
+\item Time-permitting, a consideration of implications, for example, for the findings for CVA (credit valuation adjustment) books within banks, will be made
+\end{itemize}
 
-\section{Section 1}
-Chapters should contain numbered sections and sub-sections.
-
-\section{Mathematical Notation}
-Mathematical expressions are placed inline between dollar signs, e.g. $\sqrt 2, \sum_{i=0}^nf(i)$, or in display mode
-\[ e^{i\pi}=-1\] and another way, this time with labels,
-\begin{align}
-\label{line1} A=B\wedge B=C&\rightarrow A=C\\
-&\rightarrow C=A\\
-\intertext{note that}
-n!&=\prod_{1\leq i\leq n}i \\
-\int_{x=1}^y \frac 1 x \mathrm{d}x&=\log y
-\end{align}
-We can refer to labels like this \eqref{line1}.   
+\section{Annotated Contents}
+This section gives a detailed summary of the project structure and the contents for each chapter.
+\textbf{Chapter One: Introduction}
+This chapter gives the basic information about the project and provides an overview of this report.
+\textbf{Chapter Two: Literature Review}
+This chapter details the related background knowledge prior to this project. It covers both financial and computer science related information. Explanations about options and deep learning in general and the works focusing on both aspects are provided. The scope is then limited to the types of options and specific models I would like to use. Some introductions about the traditional methods and existing neural networks for options pricing are mentioned as they will be used as references and comparisons in my assessment and evaluation.
+\textbf{Chapter Three: Data and Pre-processing}
+This chapter includes everything about the data we use throughout the project. The considerations about using solely synthetic data are elaborated. The chapter walks through the requirements for the datasets and the steps for generating the data. Both vanilla options and exotic options are generated in this project.
+\textbf{Chapter Four: Experiments with Different Methods}
+Several experiments based on existing papers are carried out in this chapter with new findings and refinements made accordingly. There are trained deep neural networks for both vanilla options and exotic options followed by comparisons to Monte-Carlo, one example of the traditional methods. Other than option pricing, we also look at the Greeks predictions and responding performances. Conclusions from the basic vanilla options are then extended to exotic options.
+\textbf{Chapter Five: Evaluations and Conclusions}
+Ending the report, the last chapter summaries the project, discusses the success and limitations of the findings， and explore possible future works.
 
 \chapter{Literature Review}
 
@@ -127,14 +137,7 @@ Buying stock gives you a long position. Buying a call option gives you a potenti
 Buying a put option gives you a potential short position in the underlying stock. Selling a naked, or unmarried, put gives you a potential long position in the underlying stock. Keeping these four scenarios straight is crucial.
 
 People who buy options are called holders and those who sell options are called writers of options. Here is the important distinction between holders and writers:
-\begin{enumerate}
-
-\item Call holders and put holders (buyers) are not obligated to buy or sell. They have the choice to exercise their rights. This limits the risk of buyers of options to only the premium spent.
-\item Call writers and put writers (sellers), however, are obligated to buy or sell if the option expires in-the-money (more on that below). This means that a seller may be required to make good on a promise to buy or sell. It also implies that option sellers have exposure to more, and in some cases, unlimited, risks. This means writers can lose much more than the price of the options premium.
-\end{enumerate}
-
-
-Here, we focus on call options and European options only. American options can be exercised at any time between the date of purchase and the expiration date. European options are different from American options in that they can only be exercised at the end of their lives on their expiration date.
+In this project, we focus on call options and European options only. American options can be exercised at any time between the date of purchase and the expiration date. European options are different from American options in that they can only be exercised at the end of their lives on their expiration date.
 We will also look into vanilla options first, then extend the findings to exotic options. 
 
 \section{Deep Learning}
@@ -197,7 +200,7 @@ Run assessments during several stages and draw conclusions along the process
 \subsection{Result Analysis}
 
 
-\chapter{Conclusions}
+\chapter{Evaluations and Conclusions}
 \section{Achievements and Deliverables}
 Summarise the achievements to confirm the project goals have been met.
 \section{Evaluation}
