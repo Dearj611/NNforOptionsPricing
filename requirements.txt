@@ -5,3 +5,4 @@ keras
 pandas
 numpy
 utils
+sklearn
