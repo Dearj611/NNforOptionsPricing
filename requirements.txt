@@ -6,3 +6,5 @@ pandas
 numpy
 utils
 sklearn
+tensorflow-gpu
+hyperas
