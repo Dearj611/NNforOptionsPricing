@@ -187,7 +187,7 @@ def model(X_train, y_train, X_test, y_test):
         monitor='val_loss',
         # "no longer improving" being defined as "no better than 1e-2 less"
         min_delta=1e-2,
-        # "no longer improving" being further defined as "for at least 2 epochs"
+        # "no longer improving" being further defined as "for at least 4 epochs"
         patience=4,
         verbose=1)
     ]
