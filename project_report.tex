@@ -70,7 +70,11 @@ This report will provide an overview on fast substitutions to traditional option
 \chapter{Introduction}
 
 \section{The problem}
-Options are one important financial instruments for investments. The ability to predict the prices is essential. The industry is still replying on traditional analytic methods to make estimations with assumptions that are known to be wrong. Noticing deep learning's impressing performance on prediction after training, this project thus decides to explore the possibilities of substituting the existing methods by trained neural networks and yield more stable and accurate outputs on particular financial products, namely vanilla and exotic call options. 
+Options, the derivatives based on the value of the underlying assets, are one important financial instruments in investments. The ability to predict the prices and the trends is essential for making trading decisions. The industry is still relying heavily on traditional analytic methods such as Monte-Carlo simulation, the Black-Scholes model to make estimations with assumptions that are known to be wrong in real-life scenarios. Noticing deep learning's impressing performances on predictions for regression problems, this project thus explores the possibilities of substituting the existing methods by trained neural networks, assesses and compares their performances under different situations, aiming for more stable and accurate outputs on particular financial products.
+
+If machine learning methods are adapted well in this case, it is believed to provide strong support and reference for option pricing, enhancing the accuracy and speed of predictions.
+
+Given the wide ranges of option products available in the market and the varieties of machine learning approaches, this project, narrows the scope by starting with the vanilla options and the classic deep learning model suggested by existing studies. Refinements and new inventions will be made along the experiments. The findings are then extended and applied to exotic options which represent more complicated scenarios in option pricing,  to examine if similar, better performances could be yield. 
 
 \section{Aims and Deliverables}
 This project aims to complete the following objectives:
@@ -113,7 +117,7 @@ Contents to be included:
 
 \subsection{Options, the traditional financial instrument}
 An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date. A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities.
-In this project, we focus on two types of options, one is the classic vanilla call option which starts every experiment, another is a Barrier Up-and-Out Put Options for our studies of exotic options. The vanilla option is set to be European options which could only be exercised only on the date of maturity. The Barrier option, on the other hand, depends on whether or not the underlying asset has reached or exceeded a predetermined price. In the case of a Barrier Up-and-Out Put Option, the option would expire worthless once the underlying exceeds the barrier price. Barrier options shares similar characteristics as the vanilla options but with added conditions to be considered. Therefore, the approach for every experiment is to start with the classic option and possibly draw some conclusions and outputs. The findings are then extended and applied to exotic options to examine if similar performances could be yield. 
+In this project, we focus on two types of options, one is the classic vanilla call options, another is a Barrier Up-and-Out Put Options for our studies of exotic options. The vanilla option is set to be European options which could only be exercised only on the date of maturity. The Barrier option, on the other hand, depends on whether or not the underlying asset has reached or exceeded a predetermined price. In the case of a Barrier Up-and-Out Put Option, the option would expire worthless once the underlying exceeds the barrier price. Barrier options shares similar characteristics as the vanilla options but with added conditions to be considered. 
 
 Option prices and the Greeks
 \subsection{Pricing Methods and Performances}
@@ -123,11 +127,13 @@ Traditionally, several pricing methods are used to estimate theoretical option v
 Explain Deep Learning in a simple way\\
 Types of Deep Learning (Methods to be used in this report)
 
-\subsection{Deep Learning in Finance & Options Pricing}
+\subsection{Deep Learning in Finance: Existing works}
+Introduces the papers I've been studying and inspired. How they are approaching the problems
 
+In this project ,we will use Python and Keras for building deep learning neural networks (explain the ml tools we gonna use in this project)
 
 \chapter{Data and Pre-processing}
-To price an option and other financial products, extensive past data are essential. It's the same for Deep Learning if the aim is to generate accurate neural networks. Considering the focus of this project which is the examination of different methods' performances instead of real-life prediction for a particular option, using real market data introduces possibly more obstacles than benefits. The amount of valid data we have access is limited and careful cleaning and filtering must be carried out before applying to the project. Therefore, synthetic data is used throughout the project for both traditional methods and for trainings of new neural networks. This consistency ensures that the comparisons and assessment made are valid and reasonable.
+To price an option and other financial products, extensive amount of past data is essential. It's the same for Deep Learning if the aim is to generate accurate neural networks. Considering the focus of this project which is the examination of different methods' performances instead of real-life prediction for a particular option, using real market data introduces possibly more obstacles than benefits. The amount of valid data we have access is limited and careful cleansing must be carried out before applying to the project. Great amount of efforts would be spent on these steps which shouldn't be a focus in this project. Therefore, synthetic data is used throughout the project for both traditional methods and for trainings of new neural networks. This consistency and large quantity ensure that the comparisons and assessment made are valid and reasonable.
 
 \section{Synthetic data}
 
@@ -178,10 +184,11 @@ The approach is to set a range of variables shown in Table \ref{tab:table1} and 
 \end{table}
 
 
-
-
 \subsection{Exotic options}
-\section{Validation and Testing}
+
+\subsection{Evaluation, Validation and Testing}
+In this project, numerical values are returned and assessed mean square error (MSE) is used as the main measurement for accuracy. Time taken generating price outputs from different methods are also recorded to compare the speed.
+
 Validation is needed because of the problem of peeking [\url{https://machinelearningmastery.com/difference-test-validation-datasets/}]. I realise that improvements could be made upon the suggested models in the first paper. 
 A good definition of the three data sets was proposed in Ripley’s book “Pattern Recognition and Neural Networks” as follows:
 – Training set: A set of examples used for learning, that is to fit the parameters of the classifier.\\
@@ -189,21 +196,38 @@ A good definition of the three data sets was proposed in Ripley’s book “Patt
 – Test set: A set of examples used only to assess the performance of a fully-specified classifier.\\
 Despite having enough data for validation (as they could be generated endlessly), one seperate, independent validation set has limited ability to identify and assess the uncertainty of a model. [\url{Max Kuhn and Kjell Johnson, Page 78, Applied Predictive Modeling, 2013}]Therefore, cross-validation is preferred.
 
+Evaluation and optimisation are two important steps to assess the performance of one model and to make refinements based on the feedback. Validation and testing data are needed. 
+Despite cross-validation is the preferred and mainstream way to carry out the validation process in most machine learning cases, it is expensive in resources and chosen mainly because of the lack of data for other models. In this project, we will use one separate, independent validation data set directly as proper sample data can be generated endlessly. 
 
-\chapter{Experiments with Different Methods}
 
-\section{Deep Learning Model for Option Pricing}
-Focus on Deep Learning for Option Pricing’[Robert Culkin & Sanjiv R. Das]\\
-Re-implement the DL model on vanilla options and produce the suggested test results\\
-Implement traditional Monte-Carlo methods for the same vanilla options \\
+\chapter{Working on vanilla option pricing}
+
+\section{A basic Deep Learning Model for Vanilla Option Pricing}
+From the neural network structure and hyper-parameters suggested in the paper Deep Learning for Option Pricing’[Robert Culkin & Sanjiv R. Das], a basic deep learning model which have decent pricing ability on vanilla options is easily re-implemented. Normalisation of the initial input data and activation functions etc are all taken from the paper. 
+
+(with comparison diagram? 
+
+However, it doesn't return  performances on test data as accurate as suggested in the paper despite having the same training data and testing data. Validation is also missing in the original process. Therefore, manual tuning on the hyper-parameters and validation are added in with the aim to improve the performance.
+
+Training data are directly set to be larger so that 20% of them are taken directly as the validation data in Keras model fit parameters. In additional to MSE, we then have the validation loss which gives a more objective assessment on the performance.
+
+Manual tuning are done in a trial and error method. Dropout rate, activation functions etc parameters are modified to train a new neural network and evaluate separately. A early callback function is added in which basically stops the training when validation loss is no longer showing any improvements within three rounds. The tunings definitely improve the model to some extend, however, whether this is the best combination of the hyper-parameters in this case can not be told. (be more tech professional
+
+\subsection{Hyper-parameter Optimisation}
+Given the limitations in the manual tuning process, hyper-parameter optimisation is introduced in the process to finalise the set of hyper-parameters our model is going to use for all the later stages. GridSearch is firstly considered as suggested in the 'Hands on Machine learning with ... ''. However, after several trials, it is proven to be too expensive thus impractical in this project. 'https://papers.nips.cc/paper/4443-algorithms-for-hyper-parameter-optimization.pdf' Tree of Parzen Estimators (TPE) is preferred in this case as it helps to find optimal parameters with informed search and 'learns' from previous iretations to avoid unnecessary efforts on unpromising areas of the search space. Python library HyperOpt (https://github.com/hyperopt/hyperopt) is used in the implementation and the chosen hyper-parameters for the turning are ....... Weights from the best model are then saved and loaded directly as the final deep learning model.
+
 Assessments on performances - speed (various data size), accuracy, Greek stability etc
 Based on results, make improvements and suggest different user cases\\
 Train the DL model and the traditional method for exotic options\\
 Run tests and comparisons again for new conclusions
 
-\subsection{DL Implementation on Vanilla options}
-\subsection{Validation on the Hyperparameters}
 \subsection{Implementation of  traditional Monte-Carlo method}
+Monte-Carlo simulation is also studied as a representative of traditional pricing methods. It is based on repeated computation and random sampling. Firstly, it will generate a large number of potential future prices of the underlying securities. Payoff for each prices will be calculated and discounted back to current value. The final prediction is given as the average of all the discounted payoffs. This method, despite introducing more noise and uncertainty,  is widely used in option pricing especially when the payoff is determined by different paths or a basket of assets. 
+
+We use the Monte-Carlo pricing engine in Quantlib to generate the model and make predictions.  The same inputs and settings from the analytic Black-Scholes model we implemented in data processing are used. Only the pricing engine is switched in this case. The model gives decent performance on prediction accuracy, however, with a much slower speed.
+
+\subsection{The Greeks}
+
 \subsection{Examination with Traditional Methods}
 \subsection{Extension to Exotic Options Pricing}
 
