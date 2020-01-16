@@ -15,6 +15,7 @@ from keras import backend
 import QuantLib as ql
 import numpy as np
 
+
 def getBestModelfromTrials(trials):
     valid_trial_list = [trial for trial in trials
                             if STATUS_OK == trial['result']['status']]
@@ -127,7 +128,7 @@ def random_options_pd(numbers = 0):
     dataframe.columns = ['stock_price', 'strike_price', 'maturity', 'devidends', 'volatility', 'risk_free_rate', 'call_price']
     return dataframe
 
-training_data = random_options_pd(100000)
+training_data = random_options_pd(300000)
 training_data.to_pickle('sample.pkl')
 
 
@@ -138,7 +139,7 @@ def data():
     This function is separated from model() so that hyperopt
     won't reload data for each evaluation run.
     """
-    n = 100000
+    n = 300000
     df = pd.read_pickle('sample.pkl')
     ## Normalize the data exploiting the fact that the BS Model is linear homogenous in S,K
     df['stock_price'] = df['stock_price']/df['strike_price']
@@ -187,7 +188,7 @@ def model(X_train, y_train, X_test, y_test):
         monitor='val_loss',
         # "no longer improving" being defined as "no better than 1e-2 less"
         min_delta=1e-2,
-        # "no longer improving" being further defined as "for at least 4 epochs"
+        # "no longer improving" being further defined as "for at least 2 epochs"
         patience=4,
         verbose=1)
     ]
@@ -216,7 +217,7 @@ if __name__ == '__main__':
         best_run, best_model = optim.minimize(model=model,
                                               data=data,
                                               algo=tpe.suggest,
-                                              max_evals=30,
+                                              max_evals=20,
                                               trials=trials)
         X_train, Y_train, X_test, Y_test = data()
         print("Evalutation of best performing model:")
@@ -225,8 +226,14 @@ if __name__ == '__main__':
         print("Best performing model chosen hyper-parameters:")
         print(best_run)
         model = getBestModelfromTrials(trials)
+        
+        model_json = model.to_json()
+        with open("model.json", "w") as json_file:
+            json_file.write(model_json)
+        # serialize weights to HDF5
         model.save_weights('model_weights.h5')
         print("Saved model weights to disk")
+        
 
 
 # In[ ]:
