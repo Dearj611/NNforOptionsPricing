@@ -228,6 +228,9 @@ We use the Monte-Carlo pricing engine in Quantlib to generate the model and make
 
 \subsection{The Greeks}
 
+Options traders often refer to the delta, gamma, vega, and theta of their option positions. Collectively, these terms are known as the Greeks, and they provide a way to measure the sensitivity of an option's price to quantifiable factors. (https://www.investopedia.com/trading/using-the-greeks-to-understand-options/) They reflect how the option prices will change responding to the changes in underlying assets' prices, the market volatility etc, thus a useful tool to better understand the risk and potential reward of an option position. 
+
+The Greeks for all three methods are generated in different ways. For analytic BSM method, Quantlib pricing engine calculates the Greeks when generating the option price,  giving us the results straightforward. 
 \subsection{Examination with Traditional Methods}
 \subsection{Extension to Exotic Options Pricing}
 
