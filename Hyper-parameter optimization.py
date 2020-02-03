@@ -147,9 +147,9 @@ def data():
     n_train =  (int)(0.8 * n)
     train = df[0:n_train]
     test = df[n_train+1:n]
-    X_train = train[['stock_price', 'strike_price', 'maturity', 'devidends', 'volatility', 'risk_free_rate']].values
+    X_train = train[['stock_price', 'maturity', 'devidends', 'volatility', 'risk_free_rate']].values
     y_train = train['call_price'].values
-    X_test = test[['stock_price', 'strike_price', 'maturity', 'devidends', 'volatility', 'risk_free_rate']].values
+    X_test = test[['stock_price', 'maturity', 'devidends', 'volatility', 'risk_free_rate']].values
     y_test = test['call_price'].values
     return X_train, y_train, X_test, y_test
 
@@ -166,17 +166,17 @@ def model(X_train, y_train, X_test, y_test):
     """
     model_mlp = Sequential()
     model_mlp.add(Dense({{choice([64,126, 256])}},
-                        activation='relu', input_shape= (6,)))
-    model_mlp.add(Dropout({{uniform(0, .3)}}))
+                        activation='relu', input_shape= (5,)))
+    model_mlp.add(Dropout({{uniform(0, .2)}}))
     model_mlp.add(Dense({{choice([64, 126, 256])}}))
     model_mlp.add(Activation({{choice(['relu', 'elu'])}}))
-    model_mlp.add(Dropout({{uniform(0, .3)}}))
+    model_mlp.add(Dropout({{uniform(0, .2)}}))
     model_mlp.add(Dense({{choice([64, 126, 256])}}))
     model_mlp.add(Activation({{choice(['relu', 'elu'])}}))
-    model_mlp.add(Dropout({{uniform(0, .3)}}))
+    model_mlp.add(Dropout({{uniform(0, .2)}}))
     model_mlp.add(Dense({{choice([64, 126, 256])}}))
     model_mlp.add(Activation({{choice(['relu', 'elu'])}}))
-    model_mlp.add(Dropout({{uniform(0, .3)}}))
+    model_mlp.add(Dropout({{uniform(0, .2)}}))
     model_mlp.add(Dense(1))
     model_mlp.add(Activation({{choice(['softmax','linear'])}}))
     model_mlp.compile(loss='mean_squared_error', metrics=['mse'],
@@ -217,7 +217,7 @@ if __name__ == '__main__':
         best_run, best_model = optim.minimize(model=model,
                                               data=data,
                                               algo=tpe.suggest,
-                                              max_evals=20,
+                                              max_evals=25,
                                               trials=trials)
         X_train, Y_train, X_test, Y_test = data()
         print("Evalutation of best performing model:")
@@ -230,6 +230,8 @@ if __name__ == '__main__':
         model_json = model.to_json()
         with open("model.json", "w") as json_file:
             json_file.write(model_json)
+        with open("parameters.json", "w") as json_file:
+            json_file.write(str(best_run))
         # serialize weights to HDF5
         model.save_weights('model_weights.h5')
         print("Saved model weights to disk")

@@ -1,0 +1,1 @@
+{'Activation': 1, 'Activation_1': 0, 'Activation_2': 1, 'Activation_3': 1, 'Dense': 0, 'Dense_1': 1, 'Dense_2': 2, 'Dense_3': 0, 'Dropout': 0.0012940502747308133, 'Dropout_1': 0.051612194522054275, 'Dropout_2': 0.16867913805904136, 'Dropout_3': 0.010935742873692506, 'batch_size': 0, 'optimizer': 0}
