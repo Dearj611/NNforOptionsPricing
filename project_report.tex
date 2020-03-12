@@ -39,7 +39,6 @@ $\Box$ \end{quotation}}
 
 \title{{\vspace{-14em} \includegraphics[scale=0.4]{ucl_logo.png}}\\
 {{\Huge Machine Learning on Options Pricing}}\\
-{\large Optional Subtitle}\\
 }
 \date{Submission date: 1 April 2020}
 \author{Wenwen Zheng\thanks{
@@ -60,7 +59,8 @@ Dr Dariush Hosseini }
 \onehalfspacing
 \maketitle
 \begin{abstract}
-This report will provide an overview on fast substitutions to traditional option pricing techniques using DL. In particular, to examine current approaches. Starting with the ‘Deep Learning for Option Pricing’[Robert Culkin & Sanjiv R. Das] and ‘Supervised Deep Neural Networks’[Tugce Karatas, Amir Oskoui, Ali Hirsa], comparisons and assessments can be made in order to generate new ideas from their inspirations and verify my own findings. 
+
+This report will provide an overview on possible substitutions to traditional option pricing techniques using Deep Learning neural networks, and will examine thoese approaches. Starting the project by re-inplementing methods suggested in ‘Deep Learning for Option Pricing’ by Robert Culkin & Sanjiv R. Das(2017) and ‘Supervised Deep Neural Networks’ by Tugce Karatas, Amir Oskoui and Ali Hirsa(2019),  assessments are made, flaws and possible refinements are highlighted in order to generate new ideas from these inspirations. Prediction accuracy on the real price of the options and the Greeks become the new focus in this project. Several attempts and modifications are then made on the existing structures to achieve the goals and to verify the effectiveness of the new neural network. 
 
 \end{abstract}
 \tableofcontents
@@ -70,25 +70,22 @@ This report will provide an overview on fast substitutions to traditional option
 \chapter{Introduction}
 
 \section{The problem}
-Options, the derivatives based on the value of the underlying assets, are one important financial instruments in investments. The ability to predict the prices and the trends is essential for making trading decisions. The industry is still relying heavily on traditional analytic methods such as Monte-Carlo simulation, the Black-Scholes model to make estimations with assumptions that are known to be wrong in real-life scenarios. Noticing deep learning's impressing performances on predictions for regression problems, this project thus explores the possibilities of substituting the existing methods by trained neural networks, assesses and compares their performances under different situations, aiming for more stable and accurate outputs on particular financial products.
-
-If machine learning methods are adapted well in this case, it is believed to provide strong support and reference for option pricing, enhancing the accuracy and speed of predictions.
-
-Given the wide ranges of option products available in the market and the varieties of machine learning approaches, this project, narrows the scope by starting with the vanilla options and the classic deep learning model suggested by existing studies. Refinements and new inventions will be made along the experiments. The findings are then extended and applied to exotic options which represent more complicated scenarios in option pricing,  to examine if similar, better performances could be yield. 
+Options, the derivatives based on the value of the underlying assets, are one important financial instrument in investments. The ability to predict the prices and the Greeks (representing the trends in the changes of different pricing factors) is essential for making trading decisions. The industry is still relying heavily on traditional analytic methods such as Monte-Carlo simulation, the Black-Scholes model to make estimations with assumptions that are known to be unrealistic in real-life scenarios. Noticing deep learning's impressing performances on predictions for regression problems, this project thus explores the possibilities of substituting the existing methods by trained neural networks. It assesses and compares their performances under different situations, aiming for more stable and accurate outputs on this particular financial product.
+If deep learning methods are adapted well in this case, it is believed to provide strong support and reference for option pricing, enhancing the accuracy and speed of predictions.
+Given the wide ranges of option products available in the market and the varieties of deep learning approaches, this project, narrows the scope by starting with the vanilla options and the classic deep learning model suggested by existing studies. Refinements and new inventions will be made along the experiments. The findings are then extended and applied to exotic options which represent more complicated scenarios in option pricing,  to examine if similar, better performances could be yield. 
 
 \section{Aims and Deliverables}
 This project aims to complete the following objectives:
 \begin{itemize}
-\item An examination of machine learning approaches to pricing a range of options products will be examined. There will be a particular focus on methods proposed by some recent papers. The focus will be the implementations for vanilla options, then for some exotic extensions.
-\item A comparison of pricing speed on novel test points will be made between the ML approaches and traditional numerical approaches (particularly Monte-Carlo based mechanisms).
-\item In addition, an examination of how the ML approaches can be used for hedging will be made, and a discussion of advantages and disadvantages vis a vis traditional methods will be considered.
+\item Several deep learning approaches to pricing a range of options products will be examined. There will be a particular focus on methods proposed by some recent papers. The scope will be the implementations for vanilla options, then for some exotic option extensions.
+\item A comparison of pricing speed on novel test points will be made between the DL approaches and traditional numerical approaches (particularly Monte-Carlo based mechanisms).
+\item In addition, an examination of how DL approaches can be used for the Greeks will be made, and a discussion of advantages and disadvantages compared to the traditional methods will be considered.
 \end{itemize}
 After several rounds of experiments and analysis, the aim is to deliver following outputs:
 \begin{itemize}
-\item A review of literature pertaining to machine learning approaches to options pricing – in particular, NN/DL approaches
-\item An implementation of a DL network to price vanilla Black Scholes options and an analysis of Greek stability and accuracy together with pricing speed vs traditional analytic and Monte-Carlo approaches will be made
-\item The experiments will be repeated for a portfolio of exotic derivatives
-\item Time-permitting, a consideration of implications, for example, for the findings for CVA (credit valuation adjustment) books within banks, will be made
+\item A review of literature pertaining to deep learning approaches to options pricing – in particular, NN/DL approaches.
+\item An implementation of a DL network to price vanilla options and generate their Greeks, and an analysis of  stability and accuracy together with pricing speed vs. traditional analytic Black Scholes formula and Monte-Carlo approaches.
+\item Repeated experiments and analysis on exotic derivatives.
 \end{itemize}
 
 \section{Annotated Contents}
@@ -96,42 +93,42 @@ This section gives a detailed summary of the project structure and the contents 
 \textbf{Chapter One: Introduction}\\
 This chapter gives the basic information about the project and provides an overview of this report.\\
 \textbf{Chapter Two: Literature Review}\\
-This chapter details the related background knowledge prior to this project. It covers both financial and computer science related information. Explanations about options and deep learning in general and the works focusing on both aspects are provided. The scope is then limited to the types of options and specific models I would like to use. Some introductions about the traditional methods and existing neural networks for options pricing are mentioned as they will be used as references and comparisons in my assessment and evaluation.\\
+This chapter details the related background knowledge prior to this project. It covers both financial and computer science related information. Explanations about options and deep learning in general and the works focusing on both aspects are provided. The scope is then limited to the types of options and specific models the project would like to focus. Some introductions about the traditional methods and existing neural networks for options pricing are mentioned as they will be used as references and comparisons in assessment and evaluation later.\\
 \textbf{Chapter Three: Data and Pre-processing}\\
-This chapter includes everything about the data we use throughout the project. The considerations about using solely synthetic data are elaborated. The chapter walks through the requirements for the datasets and the steps for generating the data. Both vanilla options and exotic options are generated in this project.\\
+This chapter includes everything about the data that is use throughout the project. The considerations about using solely synthetic data are elaborated. The chapter walks through the requirements for the datasets and the steps for generating the data. Both vanilla options and exotic options are generated in this project.\\
 \textbf{Chapter Four: Experiments with Different Methods}\\
-Several experiments based on existing papers are carried out in this chapter with new findings and refinements made accordingly. There are trained deep neural networks for both vanilla options and exotic options followed by comparisons to Monte-Carlo, one example of the traditional methods. Other than option pricing, we also look at the Greeks predictions and responding performances. Conclusions from the basic vanilla options are then extended to exotic options.\\
+Several experiments based on existing papers are carried out in this chapter with new findings and refinements made accordingly. There are trained deep neural networks for both vanilla options and exotic options followed by comparisons to Monte-Carlo simulation. Other than option pricing, we also look at the Greeks predictions and coresponding performances. Conclusions from the basic vanilla options are then extended to exotic options.\\
 \textbf{Chapter Five: Evaluations and Conclusions}\\
-Ending the report, the last chapter summaries the project, discusses the success and limitations of the findings， and explore possible future works.\\
+Ending the report, the last chapter summaries the project, discusses the success and limitations of the findings, and explore possible future works.\\
 
 \chapter{Literature Review}
 
 \section{Options and Options Pricing}
 
-Contents to be included:
-\begin{itemize}
-\item what's option (vanilla and exotic etc)
-\item BS and the Greeks
-\item Options price prediction, the Greeks, Monte-Carlo and its accuracy/stability because of unstable Greeks
-\end{itemize}
+\subsection{Options and the Greeks}
+An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date. A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities. \\
+In this project, we focus on two types of options, one is the classic vanilla call options, another is a Barrier Up-and-Out Put Options for our studies of exotic options. The vanilla option is set to be European options which could only be exercised only on the date of maturity. The Barrier option, on the other hand, depends on whether or not the underlying asset has reached or exceeded a predetermined price. In the case of a Barrier Up-and-Out Put Option, the option would expire worthless once the underlying exceeds the barrier price. Barrier options shares similar characteristics as the vanilla options but with added conditions to be considered. \\
+The Greeks refers to several dimensions of risk associated with an option at a particular position. They are the results of imperfect assumptions and relationships of the options with the underlying factors. The most common ones are mainly first partial derivatives of the analytic option pricing model. Traders need the Greeks to gain a more comprehensive insights on the options risks and thus make more informed decisions.
 
-\subsection{Options, the traditional financial instrument}
-An option is a contract giving the buyer the right, but not the obligation, to buy (in the case of a call) or sell (in the case of a put) the underlying asset at a specific price on or before a certain date. A stock option contract typically represents 100 shares of the underlying stock, but options may be written on any sort of underlying asset from bonds to currencies to commodities.
-In this project, we focus on two types of options, one is the classic vanilla call options, another is a Barrier Up-and-Out Put Options for our studies of exotic options. The vanilla option is set to be European options which could only be exercised only on the date of maturity. The Barrier option, on the other hand, depends on whether or not the underlying asset has reached or exceeded a predetermined price. In the case of a Barrier Up-and-Out Put Option, the option would expire worthless once the underlying exceeds the barrier price. Barrier options shares similar characteristics as the vanilla options but with added conditions to be considered. 
-
-Option prices and the Greeks
-\subsection{Pricing Methods and Performances}
-Traditionally, several pricing methods are used to estimate theoretical option values.The simplest method to price the options is to use a binomial option pricing model. However,  the assumption of perfectly efficient markets over-simplifies the problem, making it not valuable for this project. The Black-Scholes model is another commonly used option pricing model. This project mainly builds upon this pricing theory as it was developed mainly for the pricing European options on stocks with a fair degree of assumptions made. Monte-Carlo methods are another focus in this project, mainly as a comparison to our models. They differentiate themselves from other option pricing techniques in the way that potential asset prices are generated in the process. Despite being relatively slow, Monte-Carlo methods are ideal for pricing options where the payoff is path dependent. To evaluate the performances of different methods under various circumstances, accuracy, speed and stability are highlighted. 
+\subsection{Traditional Pricing Methods and Performances}
+Among the traditional analytic pricing methods are used to estimate theoretical option values, the simplest method to price one option is to use a binomial option pricing model. However, the assumption of perfectly efficient markets over-simplifies the problem, making it not valuable for any application purposes. \\
+The Black-Scholes Merton (BSM) model (Black and Scholes 1973; Merton 1973) is a commonly used option pricing model. This project mainly builds upon this pricing theory as it was developed mainly for the pricing of European options  with a fair degree of assumptions made. Monte-Carlo option model (Boyle, 1977) are another focus in this project, mainly as a comparison to our methods. It differentiates itself from other option pricing techniques in the way that potential asset prices are generated in the process. Despite being relatively slow, Monte-Carlo methods are ideal for pricing options where the payoff is path dependent. The extension of Monte-Carlo model on American-style options (Longstaff and Schwartz, 2001) and basket options allows the project to use it for implementations on extended works. To evaluate the performances of different methods under various circumstances, accuracy, speed and stability are highlighted. 
 
 \section{Deep Learning}
-Explain Deep Learning in a simple way\\
-Types of Deep Learning (Methods to be used in this report)
+
+\subsection{Brief overview on deep learning}
+
+The idea of Artificial intelligence (AI) and Machine Learning (ML) arrived and was investigated back to the 1950s. However, it was brought back into the spotlight and became one of the most popular research area in computer sciences in 21st century. With sufficient data and enhanced computational power, we are able to implement and calculate large set of neural networks (NN), mathematically simulating the way the human brain works, learning from what we've seen.. Findings from ML show reliable results and potentials for real-life applications. Calculations used to be hard because of the mathematical nature of NNs includes matrix calculations in high dimensions. To ensure accurate predictions, reasonably large amount of high-quality data is needed as there must be enough data to represent the general characteristics of the whole population and for the NNs to learn the parameters for a good approximation. Collaborative efforts by different parties have made all this possible. Special purpose computer chips, for example, Google's tensor processing units (TPUs), together with deep learning softwares, are designed to overcome the hardware limitations. Realising the values and potentials in big data, numerous industries started data collections with increasing speed and scale, which outputs enough samples for ML researches to work on. \\
+Summarising the goal of a typical deep feedforward neural network that the project is using here, it's to find a mapping \(y = f(x) = w \cdot x\) where x and y are sets of inputs and outputs correspondingly, and to learn the values for parameter w that yields the best function approximation. To evaluate the possible mappings, an objective function should be chosen as a measure to reflect the error. In many publications regarding ML on option pricing and this paper,  \empf{mean squared error}(MSE), is used: 
+\[MSE = (\frac{1}{n})\sum_{i=1}^{n}(y_{i} - x_{i})^{2}\] where \(y_{i}\)  is the expected output and \(x_{i}\) is the predicted return from NNs. The optimisation stage is about to minimise the object function. It could be done by gradient descent optimisation algorithm. In this case, it was a computationally expensive task as we need to find the gradient of the object function for every neuron with its specific weights. With the help of backpropagation algorithm (Rumelhart, Hinton & Williams,1986), this problem is alleviated as it utilised the chain rule and calculates the gradient of the final layer first and reuses those partial computations of the gradient from one layer for in the gradient for the previous layer ,providing an efficient way to replace the naive approach. Although the ultimate goal is to minimise the loss function, it might not be the case because of overfitting issues. Therefore, some more adjustments for example, regularisations, will be applied to the NNs to find a balance between in-sample and out-of-sample performances, thus to achieve a NN which approximate the whole population best. 
+
 
 \subsection{Deep Learning in Finance: Existing works}
-Introduces the papers I've been studying and inspired. How they are approaching the problems
-
-In this project ,we will use Python and Keras for building deep learning neural networks (explain the ml tools we gonna use in this project)
-
+Given the availability of large amount of data in finance industry and the needs for speed and accuracy in pricing predictions, deep learning seems to be relevant and applicable in these sectors. Back to 1996, P.Tenti published findings about forecasting foreign exchange rates using recurrent deep learning, making neural networks as a possible choice for financial related predictions. Focusing on option pricing,  Hutchinson et al.(1994) firstly proved that a neural network learning the BSM model performs well to approximate derivative valuations.
+Based on this early application, Culkin and Das (2017) trained deep neural networks with more complicated structure and more layers to solve the pricing problem and to confirm the satisfying performances delivered by NNs in this case. Ferguson and Green (2018) further extended the application on basket options and evaluated its accuracy and speed in compare to Monte Carlo simulations. Karatas, Oskoui and Hirsa (2019) examined supervised deep neural networks for both vanilla and exotic options under several different processes. Their paper provided a throughout summary of all the performances and highlighted some details for example, the choice of optimisers and parameter selection. \\
+There are many powerful tools implementing deep learning algorithms supported in many programming languages. Tensorflow is one of the popular machine learning platform which provides convenient uses of above mentioned algorithms and more. It can also be configured to run on GPU, TPUs for faster  training. Other than ML specific libraries, tools like pandas and numpy provides strong supports on data cleaning and manipulation.\\
+Analysing those methods and results in these literatures, some problems and blank areas are spotted. These would be possible points that the project could dig in and investigate in depth. In most of the publications,  a fair degree of accuracy is achieved, suggesting the success in their predictions and possibilities to apply NN methods in real-life situations. However, this might be a too optimistic conclusion as compared to other traditional methods's performances under the same conditions, NNs might show no competitiveness in terms of accuracy. 
+Another observation is that despite the close relationships between option pricing and the corresponding Greeks and the almost same level of importances of the Greeks for trading decisions, no paper has extended the whole training frameworks and assessments to the Greeks. It could be an interesting research subject to look into. The performances of the NNs on the Greeks could possibly reflect some of other characteristics that were downplayed in the existing studies. 
 \chapter{Data and Pre-processing}
 To price an option and other financial products, extensive amount of past data is essential. It's the same for Deep Learning if the aim is to generate accurate neural networks. Considering the focus of this project which is the examination of different methods' performances instead of real-life prediction for a particular option, using real market data introduces possibly more obstacles than benefits. The amount of valid data we have access is limited and careful cleansing must be carried out before applying to the project. Great amount of efforts would be spent on these steps which shouldn't be a focus in this project. Therefore, synthetic data is used throughout the project for both traditional methods and for trainings of new neural networks. This consistency and large quantity ensure that the comparisons and assessment made are valid and reasonable.
 
